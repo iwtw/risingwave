@@ -332,7 +332,6 @@ where
             &locations,
         )
         .await?;
-        tracing::debug!("is_legacy_frontend {}", is_legacy_frontend);
         tracing::debug!("table_fragments {:#?}", table_fragments.clone());
 
         // Verify whether all same_as_upstream constraints are satisfied.
