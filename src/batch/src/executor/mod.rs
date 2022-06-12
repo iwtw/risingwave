@@ -110,12 +110,15 @@ macro_rules! build_executor {
         match $source.plan_node().get_node_body().unwrap() {
             $(
                 $proto_type_name(..) => {
+                    let _str_data_type = stringify!($data_type);
+                    debug!("build_executor {}", _str_data_type);
                     <$data_type>::new_boxed_executor($source, $inputs)
                 },
             )*
         }
     }
 }
+
 
 impl<'a, C: Clone> ExecutorBuilder<'a, C> {
     pub fn new(plan_node: &'a PlanNode, task_id: &'a TaskId, context: C, epoch: u64) -> Self {

@@ -14,6 +14,7 @@
 
 use std::collections::HashSet;
 use std::iter::Map;
+use itertools::Itertools;
 use std::time::Duration;
 
 use futures::future::try_join_all;
@@ -98,6 +99,12 @@ where
                 Command::checkpoint(),
             );
 
+
+            tracing::debug!("command_context.cur_epoch = {}, prev_epoch = {}, command = {:#?}", command_ctx.curr_epoch, command_ctx.prev_epoch, command_ctx.command);
+            for (node_id, node) in command_ctx.info.node_map.iter() {
+                tracing::debug!("ator_ids_to_send: {:#?}", command_ctx.info.actor_ids_to_send(node_id).collect_vec());
+                tracing::debug!("ator_ids_to_collect: {:#?}", command_ctx.info.actor_ids_to_collect(node_id).collect_vec());
+            }
             match self.inject_barrier(&command_ctx).await {
                 Ok(response) => {
                     if let Err(err) = command_ctx.post_collect().await {

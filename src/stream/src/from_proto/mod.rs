@@ -75,6 +75,8 @@ macro_rules! build_executor {
         match $node.get_node_body().unwrap() {
             $(
                 $proto_type_name(..) => {
+                    let _str_data_type = std::stringify!($data_type);
+                    tracing::debug!("build_executor {}", _str_data_type);
                     <$data_type>::new_boxed_executor($source, $node, $store, $stream)
                 },
             )*

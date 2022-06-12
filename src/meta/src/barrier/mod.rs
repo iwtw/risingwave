@@ -355,9 +355,11 @@ where
         let mutation = command_context.to_mutation().await?;
         let info = command_context.info;
 
+
         let collect_futures = info.node_map.iter().filter_map(|(node_id, node)| {
             let actor_ids_to_send = info.actor_ids_to_send(node_id).collect_vec();
             let actor_ids_to_collect = info.actor_ids_to_collect(node_id).collect_vec();
+
 
             if actor_ids_to_collect.is_empty() {
                 // No need to send or collect barrier for this node.

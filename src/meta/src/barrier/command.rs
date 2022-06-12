@@ -96,7 +96,7 @@ pub struct CommandContext<'a, S: MetaStore> {
     pub prev_epoch: &'a Epoch,
     pub curr_epoch: &'a Epoch,
 
-    command: Command,
+    pub command: Command,
 }
 
 impl<'a, S: MetaStore> CommandContext<'a, S> {
